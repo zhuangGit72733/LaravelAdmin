@@ -83,13 +83,10 @@ class ArticlesController extends Controller
     {
         $grid = new Grid(new Article);
         $grid->filter(function($filter){
-
             // 去掉默认的id过滤器
             $filter->disableIdFilter();
-
             // 在这里添加字段过滤器
             $filter->like('title', '标题');
-
         });
 
         $grid->id('序号')->sortable();

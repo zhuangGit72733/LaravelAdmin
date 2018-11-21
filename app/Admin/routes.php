@@ -2,6 +2,7 @@
 
 use Illuminate\Routing\Router;
 
+
 Admin::registerAuthRoutes();
 
 Route::group([
@@ -13,5 +14,6 @@ Route::group([
     $router->get('/', 'HomeController@index');
     $router->resource('articles', ArticlesController::class);
     $router->resource('categories', CategoriesController::class);
+    $router->resource('users', UsersController::class);
 
 });
