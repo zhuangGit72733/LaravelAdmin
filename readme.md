@@ -17,3 +17,5 @@ php artisan make:auth
 php artisan make:model Models\Article
 
 php artisan make:controller ArticlesController --resource --model=Models\Article
+
+5、route与controller的基本操作

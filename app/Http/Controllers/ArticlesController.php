@@ -12,9 +12,11 @@ class ArticlesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Article $article)
     {
-        //
+
+        $articles = $article->orderBy('id', 'desc')->paginate(5);
+        return view('articles._list', compact('articles'));
     }
 
     /**
@@ -22,9 +24,9 @@ class ArticlesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Article $article)
     {
-        //
+        return view('articles._create', compact('article'));
     }
 
     /**
@@ -33,9 +35,11 @@ class ArticlesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Article $article, Request $request)
     {
-        //
+        $article = fill($request->all());
+        $article->save();
+        return redirect()->route('articles.index');
     }
 
     /**
@@ -57,7 +61,7 @@ class ArticlesController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        return view('articles._edit', compact('article'));
     }
 
     /**
@@ -69,7 +73,9 @@ class ArticlesController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+        $article = fill($request->all());
+        $article->save();
+        return redirect()->route('articles.index');
     }
 
     /**
@@ -80,6 +86,7 @@ class ArticlesController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+        return redirect()->route('articles.index');//重定向路由
     }
 }
