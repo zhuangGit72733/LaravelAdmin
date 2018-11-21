@@ -1,4 +1,4 @@
-1、laravel包
+1、laravel安装
 
 2、laravel-admin的添加
 
