@@ -96,6 +96,9 @@ class ArticlesController extends Controller
         $grid->title('标题');
         $grid->column('user.name','作者');
         $grid->column('category.name', '分类');
+        $grid->column('image', '头像')->display(function ($v){
+            return '<img style="width:100px;height:100px;" src="'.$v.'"/>';
+        });
         $grid->created_at('创建时间');
         $grid->updated_at('更新时间');
 
@@ -117,6 +120,7 @@ class ArticlesController extends Controller
         $show->content('内容');
         $show->user_id('作者');
         $show->category_id('分类');
+        $show->image('头像');
         $show->created_at('创建时间');
         $show->updated_at('更新时间');
 
@@ -146,6 +150,11 @@ class ArticlesController extends Controller
         $form->select('category_id', '分类')->options(Category::all()->pluck('name','id'))->rules('required|exists:categories,id', [
             'required' => '分类不能为空',
             'exists' => '分类必须存在'
+        ]);
+        $form->image('image', '头像')->rules('required|max:200*1024|image', [
+            'required' => '头像不能为空',
+            'image' => '头像样式不符',
+            'max' => '头像大小不能超过200K',
         ]);
 
         return $form;

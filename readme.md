@@ -33,3 +33,5 @@ php artisan admin:make ArticlesController --model=App\Models\Article
 php artisan make:controller CategoriesController --resource --model=Models\Category
 
 php artisan admin:make CategoriesController --model=App\Models\Category
+
+10、图片功能添加

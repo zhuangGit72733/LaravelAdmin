@@ -19,4 +19,15 @@ class Article extends Model
     {
        return  $this->belongsTo(Category::class);
     }
+    public function getImageAttribute($v)
+        //修改器定义image的文件路径 ,
+        //数据库有_的字段更改为驼峰命名
+        //config文件夹中(filesystems.php).disks.custom.url
+    {
+        if ($v){
+            return config('filesystems.disks.admin.url').'/'.$v;
+        }
+        else
+            return "";
+    }
 }
