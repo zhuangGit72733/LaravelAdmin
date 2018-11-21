@@ -81,10 +81,10 @@ class CategoriesController extends Controller
     {
         $grid = new Grid(new Category);
 
-        $grid->id('Id');
-        $grid->name('Name');
-        $grid->created_at('Created at');
-        $grid->updated_at('Updated at');
+        $grid->id('序号')->sortable();
+        $grid->name('类别');
+        $grid->created_at('创建时间');
+        $grid->updated_at('更新时间');
 
         return $grid;
     }
@@ -99,10 +99,10 @@ class CategoriesController extends Controller
     {
         $show = new Show(Category::findOrFail($id));
 
-        $show->id('Id');
-        $show->name('Name');
-        $show->created_at('Created at');
-        $show->updated_at('Updated at');
+        $show->id('序号');
+        $show->name('类别');
+        $show->created_at('创建时间');
+        $show->updated_at('更新时间');
 
         return $show;
     }
@@ -116,7 +116,10 @@ class CategoriesController extends Controller
     {
         $form = new Form(new Category);
 
-        $form->text('name', 'Name');
+        $form->text('name', 'Name')->rules('required|unique:categories',[
+            'required' => '分类不能为空',
+            'unique' => '分类已存在'
+        ]);
 
         return $form;
     }
