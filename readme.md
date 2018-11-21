@@ -27,3 +27,9 @@ php artisan admin:make ArticlesController --model=App\Models\Article
 7、laravel-admin完善基本功能
 
 8、过滤规则引入
+
+9、分类模块
+
+php artisan make:controller CategoriesController --resource --model=Models\Category
+
+php artisan admin:make CategoriesController --model=App\Models\Category

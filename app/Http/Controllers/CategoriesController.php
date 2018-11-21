@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class ArticlesController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Article $article)
+    public function index(Category $category)
     {
-
-        return view('articles._list', compact('article'));
+        return view('category._list', compact('category'));
     }
 
     /**
@@ -23,9 +22,9 @@ class ArticlesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Article $article)
+    public function create(Category $category)
     {
-        return view('articles._create', compact('article'));
+        return view('category._create',compact('category'));
     }
 
     /**
@@ -36,18 +35,18 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
-        $article = fill($request->all());
-        $article->save();
-        return redirect()->route('articles.index');
+        $category = fill($request->all());
+        $category->save();
+        return redirect()->route('categories.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Article  $article
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show(Category $category)
     {
         //
     }
@@ -55,37 +54,37 @@ class ArticlesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Article  $article
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit(Category $category)
     {
-        return view('articles._edit', compact('article'));
+        return view('categories._edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Article  $article
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
-        $article = fill($request->all());
-        $article->save();
+        $category = fill($request->all());
+        $category->save();
         return redirect()->route('articles.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Article  $article
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy(Category $category)
     {
-        $article->delete();
-        return redirect()->route('articles.index');//重定向路由
+        $category->delete();
+        return redirect()->route('categories.index');//重定向路由
     }
 }
