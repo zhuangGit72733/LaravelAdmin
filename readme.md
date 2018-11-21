@@ -21,4 +21,7 @@ php artisan make:controller ArticlesController --resource --model=Models\Article
 5、route与controller的基本操作
 
 6、laravel-admin后台引入
+
 php artisan admin:make ArticlesController --model=App\Models\Article
+
+7、laravel-admin完善基本功能

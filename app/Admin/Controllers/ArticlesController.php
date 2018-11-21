@@ -3,12 +3,14 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use App\User;
 
 class ArticlesController extends Controller
 {
@@ -80,14 +82,22 @@ class ArticlesController extends Controller
     protected function grid()
     {
         $grid = new Grid(new Article);
+        $grid->filter(function($filter){
 
-        $grid->id('Id');
-        $grid->title('Title');
-        $grid->content('Content');
-        $grid->user_id('User id');
-        $grid->category_id('Category id');
-        $grid->created_at('Created at');
-        $grid->updated_at('Updated at');
+            // 去掉默认的id过滤器
+            $filter->disableIdFilter();
+
+            // 在这里添加字段过滤器
+            $filter->like('title', '标题');
+
+        });
+
+        $grid->id('序号')->sortable();
+        $grid->title('标题');
+        $grid->column('user.name','作者');
+        $grid->column('category.name', '分类');
+        $grid->created_at('创建时间');
+        $grid->updated_at('更新时间');
 
         return $grid;
     }
@@ -102,13 +112,13 @@ class ArticlesController extends Controller
     {
         $show = new Show(Article::findOrFail($id));
 
-        $show->id('Id');
-        $show->title('Title');
-        $show->content('Content');
-        $show->user_id('User id');
-        $show->category_id('Category id');
-        $show->created_at('Created at');
-        $show->updated_at('Updated at');
+        $show->id('序号');
+        $show->title('标题');
+        $show->content('内容');
+        $show->user_id('作者');
+        $show->category_id('分类');
+        $show->created_at('创建时间');
+        $show->updated_at('更新时间');
 
         return $show;
     }
@@ -122,10 +132,10 @@ class ArticlesController extends Controller
     {
         $form = new Form(new Article);
 
-        $form->text('title', 'Title');
-        $form->text('content', 'Content');
-        $form->number('user_id', 'User id');
-        $form->number('category_id', 'Category id');
+        $form->text('title', '标题');
+        $form->textarea('content', '内容');
+        $form->select('user_id', '作者')->options(User::all()->pluck('name','id'));
+        $form->select('category_id', '分类')->options(Category::all()->pluck('name','id'));
 
         return $form;
     }

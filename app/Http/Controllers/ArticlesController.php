@@ -15,8 +15,7 @@ class ArticlesController extends Controller
     public function index(Article $article)
     {
 
-        $articles = $article->orderBy('id', 'desc')->paginate(5);
-        return view('articles._list', compact('articles'));
+        return view('articles._list', compact('article'));
     }
 
     /**
