@@ -132,10 +132,21 @@ class ArticlesController extends Controller
     {
         $form = new Form(new Article);
 
-        $form->text('title', '标题');
-        $form->textarea('content', '内容');
-        $form->select('user_id', '作者')->options(User::all()->pluck('name','id'));
-        $form->select('category_id', '分类')->options(Category::all()->pluck('name','id'));
+        $form->text('title', '标题')->rules('required|max:10', [
+            'required' => '标题不能为空',
+            'max' => '标题不能超过10个字'
+        ]);
+        $form->textarea('content', '内容')->rules('required',[
+            'required' => '内容不能为空'
+        ]);
+        $form->select('user_id', '作者')->options(User::all()->pluck('name','id'))->rules('required|exists:users,id', [
+            'required' => '作者不能为空',
+            'exists' => '作者必须存在'
+        ]);
+        $form->select('category_id', '分类')->options(Category::all()->pluck('name','id'))->rules('required|exists:categories,id', [
+            'required' => '分类不能为空',
+            'exists' => '分类必须存在'
+        ]);
 
         return $form;
     }

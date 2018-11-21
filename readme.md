@@ -25,3 +25,5 @@ php artisan make:controller ArticlesController --resource --model=Models\Article
 php artisan admin:make ArticlesController --model=App\Models\Article
 
 7、laravel-admin完善基本功能
+
+8、过滤规则引入
